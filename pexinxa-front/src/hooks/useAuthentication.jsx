@@ -18,6 +18,12 @@ export const useAuthentication = () => {
     return () => unsubscribe();
   }, []);
 
+  const signInWithGoogle = () => {
+    gapi.auth2.getAuthInstance().signIn().then(() => {
+      console.log("Usuário autenticado!");
+    });
+  };
+
   const emailPasswordSignIn = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -53,5 +59,6 @@ export const useAuthentication = () => {
     emailPasswordSignIn,
     googleSignIn,
     signOut,
+    signInWithGoogle
   };
 };
