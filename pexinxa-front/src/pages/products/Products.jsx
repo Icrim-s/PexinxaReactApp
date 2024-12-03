@@ -11,6 +11,9 @@ import { useCart } from "../../context/CartContext";
 import products from "../../hooks/useProductData";
 import MarketMap from "../../components/MarketMap/MarketMap";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
+
+const economia = "/economia.png";
 
 export const Product = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -23,7 +26,6 @@ export const Product = () => {
   });
   const [economyMode, setEconomyMode] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-
   const { currentUser } = useAuth();
   const { addItem } = useCart();
   const navigate = useNavigate();
@@ -34,6 +36,10 @@ export const Product = () => {
       return;
     }
     addItem(product);
+    toast.success(`${product.name} foi adicionado à lista!`, {
+      position: "top-right",
+      duration: 2000, 
+    });
   };
 
   const handleScroll = () => {
@@ -94,6 +100,7 @@ export const Product = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
+      <Toaster />
       <Navbar />
       <main className="flex-grow container mx-auto p-4">
         <BannerCarousel />
@@ -108,8 +115,8 @@ export const Product = () => {
                     onChange={() => setEconomyMode(!economyMode)}
                   />
                 }
-                className="text-green-600 font-montserrat font-semibold"
-                label="✅ Economia Máxima "
+                className="text-white font-montserrat font-semibold bg-green-500 pr-4 rounded"
+                label="Economia Máxima"
               />
             </FormGroup>
             <button
@@ -120,7 +127,7 @@ export const Product = () => {
             </button>
           </div>
         </div>
-        <hr className="flex mb-10" />
+        <hr className="flex mb-10 flex relative" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
@@ -156,9 +163,13 @@ export const Product = () => {
                 </div>
                 {economyMode &&
                   (product.price === 9.5 || product.price === 5.9) && (
-                    <span className="text-xs text-green-500 font-bold">
-                      ✅ Economia Máxima!
-                    </span>
+                <div className="absolute w-full max-w-sm p-4 flex-col items-start">
+                  <img
+                    src={economia}
+                    alt="Logo"
+                    className="absolute top-1 right-10 w-10 h-10 object-contain"
+                  />
+                </div>
                   )}
                 <button
                   className="mt-2 w-full bg-orange-500 text-white py-2 rounded-full font-bold flex items-center justify-center hover:bg-orange-600 transition-all hover:-translate-y-1"
