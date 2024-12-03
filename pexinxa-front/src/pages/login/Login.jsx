@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthentication } from '../../hooks/useAuthentication'; 
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { googleSignIn, emailPasswordSignIn,  } = useAuthentication();
+  const [passwordVisible, setPasswordVisible] = useState(false); 
+  const { googleSignIn, emailPasswordSignIn } = useAuthentication();
   const [errorMessage, setErrorMessage] = useState('')  
   const [successMessage, setSuccessMessage] = useState('') 
   const navigate = useNavigate();
@@ -43,9 +44,10 @@ export const LoginForm = () => {
     <div className="flex h-screen items-center justify-center"
     style={{
       backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: "100%",
-      backgroundPosition: "top",
+      backgroundSize: "auto",       
+      backgroundPosition: "top center",
       backgroundRepeat: "no-repeat",
+      
     }}
   >
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md relative">
@@ -90,12 +92,11 @@ export const LoginForm = () => {
         </div>
         <form onSubmit={handleSubmit} className="mt-6 space-y-6">
           <div>
-
-          {successMessage && (
-          <div className="mb-4 p-4 text-green-800 bg-green-200 rounded-md text-center">
-            {successMessage}
-          </div>
-        )} 
+            {successMessage && (
+              <div className="mb-4 p-4 text-green-800 bg-green-200 rounded-md text-center">
+                {successMessage}
+              </div>
+            )}
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email
             </label>
@@ -107,30 +108,41 @@ export const LoginForm = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Digite seu E-mail"
             />
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Senha
             </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="relative">
+              <input
+                id="password"
+                name="password"
+                type={passwordVisible ? 'text' : 'password'} 
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Digite sua Senha"
+              />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible(!passwordVisible)} // Alterna a visibilidade da senha
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500"
+              >
+                {passwordVisible ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+              </button>
+            </div>
           </div>
           {errorMessage && (
-          <div className="mb-3 p-4 text-red-800 bg-red-200 rounded-md text-center">
-            {errorMessage}
-          </div>
-        )}
+            <div className="mb-3 p-4 text-red-800 bg-red-200 rounded-md text-center">
+              {errorMessage}
+            </div>
+          )}
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              <a href="#" className="font-medium text-orange-500 hover:text-orange-400">
+              <a href="#" className="font-medium text-orange-500 undeline hover:text-orange-400 ">
                 Esqueci minha senha
               </a>
             </div>
@@ -142,11 +154,13 @@ export const LoginForm = () => {
             >
               Entrar
             </button>
+
           </div>
         </form>
-        <div className="mt-6 text-center">
-          <Link to="/register" className="text-sm font-medium text-orange-500 hover:text-orange-400">
-            Não tem uma conta? Cadastre-se
+        <div className="mt-4 text-center text-sm text-orange-500 font-medium">
+          Não tem uma conta?{' '}
+          <Link to="/register" className="text-orange-500 hover:text-orange-600 font-medium underline">
+            Cadastre-se  
           </Link>
         </div>
       </div>

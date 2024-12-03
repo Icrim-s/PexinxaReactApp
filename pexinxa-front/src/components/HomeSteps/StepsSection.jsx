@@ -16,7 +16,7 @@ export const StepsSection = () => {
     },
     {
       image: bag, 
-      title: "3° Faça as Compras!",
+      title: "3° Economize já!",
       description: "Com sua lista em mãos, vá às compras e aproveite a economia que você fez!",
     },
   ];

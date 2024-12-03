@@ -5,9 +5,11 @@ import LoginForm from './pages/login/Login';
 import RegisterForm from './pages/register/Register';
 import CookieCard from './components/Cookie/CookieCard';
 import About from './pages/about/About'
+import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
+    <CartProvider>
     <Router>
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
@@ -22,6 +24,7 @@ function App() {
         <CookieCard />
       </div>
     </Router>
+    </CartProvider>
   );
 }
 
