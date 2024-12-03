@@ -39,7 +39,7 @@ const MarketMap = () => {
   }, []);
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyDtN1xF5CZtkd1tMAL-GhXYHVRtVbLqaoY" libraries={["places"]}>
+    <LoadScript googleMapsApiKey="AIzaSyA8XOn-q4kcM0YAURdjnIx2DHY_R8KwSSw" libraries={["places"]}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
         {markets.map((market) => (
           <Marker
