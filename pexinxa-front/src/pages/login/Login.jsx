@@ -154,6 +154,7 @@ export const LoginForm = () => {
             >
               Entrar
             </button>
+
           </div>
         </form>
         <div className="mt-4 text-center text-sm text-orange-500 font-medium">
