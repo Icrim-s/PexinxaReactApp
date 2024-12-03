@@ -11,6 +11,7 @@ import { useCart } from "../../context/CartContext";
 import products from "../../hooks/useProductData";
 import MarketMap from "../../components/MarketMap/MarketMap";
 import { useNavigate } from "react-router-dom";
+import GoogleCalendarService from "../../hooks/GoogleCalendarService";
 
 export const Product = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -27,6 +28,36 @@ export const Product = () => {
   const { currentUser } = useAuth();
   const { addItem } = useCart();
   const navigate = useNavigate();
+  const {createEvent} = GoogleCalendarService();
+
+  const handleAddToCalendar = () => {
+    gapi.auth2.getAuthInstance().signIn().then(() => {
+      const event = {
+        summary: "Promoção no supermercado",
+        description: "Aproveite as promoções listadas no aplicativo.",
+        start: {
+          dateTime: "2024-12-04T10:00:00-03:00", // Exemplo: Data e hora do evento
+          timeZone: "America/Sao_Paulo",
+        },
+        end: {
+          dateTime: "2024-12-04T11:00:00-03:00",
+          timeZone: "America/Sao_Paulo",
+        },
+      };
+    
+      gapi.client.calendar.events
+        .insert({
+          calendarId: "primary",
+          resource: event,
+        })
+        .then((response) => {
+          console.log("Evento criado com sucesso:", response.result);
+        })
+        .catch((error) => {
+          console.error("Erro ao criar evento:", error);
+        });
+    });
+  };
 
   const handleAddToCart = (product) => {
     if (!currentUser) {
@@ -118,6 +149,15 @@ export const Product = () => {
             >
               <SlidersHorizontal className="mr-2" /> Filtro
             </button>
+
+            <button
+              onClick={handleAddToCalendar}
+              className="flex items-center bg-sky-500 text-white px-16 py-2 rounded"
+            >
+               Calendário
+            </button>
+
+
           </div>
         </div>
         <hr className="flex mb-10" />
