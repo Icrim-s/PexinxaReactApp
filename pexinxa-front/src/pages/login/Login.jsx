@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthentication } from '../../hooks/useAuthentication'; 
 import { FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useAuth } from '../../context/AuthContext';
 
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,11 @@ export const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState('')  
   const [successMessage, setSuccessMessage] = useState('') 
   const navigate = useNavigate();
+  const { loginWithBiometric, registerBiometric } = useAuth();
+
+  const handleRegister = () => {
+    registerBiometric(username);
+  };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -153,6 +159,13 @@ export const LoginForm = () => {
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-500 hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Entrar
+            </button>
+
+            <button
+              onClick={loginWithBiometric}
+              className="w-full flex justify-center mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Entrar com Biometria
             </button>
 
           </div>
