@@ -35,10 +35,11 @@ export const ShoppingCart = ({ isOpen, onClose }) => {
     let currentY = 20;
 
     Object.entries(groupedItems).forEach(([marketName, group]) => {
+      doc.setTextColor(255, 117, 24);
       doc.setFontSize(12);
       doc.text(marketName, 10, currentY);
       currentY += 10;
-
+      
       const tableData = group.items.map((item, index) => [
         index + 1,
         item.name,
@@ -46,15 +47,17 @@ export const ShoppingCart = ({ isOpen, onClose }) => {
         `R$ ${item.price.toFixed(2)}`,
         `R$ ${(item.price * item.quantity).toFixed(2)}`,
       ]);
-
+      doc.setTextColor(0,0,0),
+      
       doc.autoTable({
+        
         startY: currentY,
-        head: [["#", "Produto", "Quantidade", "Preço Unitário", "Total"]],
+        head: [["#", "Produto", "Quantidade", "Preço Unitário", "Total", "Valor Real"]],
         body: tableData,
       });
-
+      
       currentY = doc.lastAutoTable.finalY + 10;
-
+    
       doc.setFontSize(10);
       doc.text(`Subtotal: R$ ${group.subtotal.toFixed(2)}`, 10, currentY);
       currentY += 10;
@@ -62,6 +65,7 @@ export const ShoppingCart = ({ isOpen, onClose }) => {
 
     currentY += 2;
     doc.setFontSize(12);
+    doc.setTextColor(255, 117, 24);
     currentY += 2;
     doc.setFontSize(16);
     doc.text(`Total: R$ ${(subtotal).toFixed(2)}`, 10, currentY);

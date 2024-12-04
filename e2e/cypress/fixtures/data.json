@@ -1,4 +1,10 @@
+
 {
- "email": "icarobellemapp@gmail.com",
- "password": "Kadumaverik12!"    
+"name": "Icaro Bellem",
+"phone": "16999999999",
+"email": "icarobellemapp@gmail.com",
+"newEmail": "fatecmatao@gmail.com",
+"password": "Kadumaverik12!", 
+"confirmPassword": "Senha123!"
 }
+

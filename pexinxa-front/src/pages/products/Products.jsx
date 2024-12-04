@@ -38,7 +38,7 @@ export const Product = () => {
     addItem(product);
     toast.success(`${product.name} foi adicionado à lista!`, {
       position: "top-right",
-      duration: 2000, 
+      duration: 2000,
     });
   };
 
@@ -107,18 +107,6 @@ export const Product = () => {
         <div className="flex justify-between items-center mb-4 mt-3 font-montserrat">
           <h2 className="text-3xl font-bold text-gray-700">Produtos</h2>
           <div className="flex gap-4 items-center">
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={economyMode}
-                    onChange={() => setEconomyMode(!economyMode)}
-                  />
-                }
-                className="text-white font-montserrat font-semibold bg-green-500 pr-4 rounded"
-                label="Economia Máxima"
-              />
-            </FormGroup>
             <button
               onClick={() => setIsFilterOpen(true)}
               className="flex items-center bg-orange-500 text-white px-16 py-2 rounded"
@@ -163,13 +151,13 @@ export const Product = () => {
                 </div>
                 {economyMode &&
                   (product.price === 9.5 || product.price === 5.9) && (
-                <div className="absolute w-full max-w-sm p-4 flex-col items-start">
-                  <img
-                    src={economia}
-                    alt="Logo"
-                    className="absolute top-1 right-10 w-10 h-10 object-contain"
-                  />
-                </div>
+                    <div className="absolute w-full max-w-sm p-4 flex-col items-start">
+                      <img
+                        src={economia}
+                        alt="Logo"
+                        className="absolute top-1 right-10 w-10 h-10 object-contain"
+                      />
+                    </div>
                   )}
                 <button
                   className="mt-2 w-full bg-orange-500 text-white py-2 rounded-full font-bold flex items-center justify-center hover:bg-orange-600 transition-all hover:-translate-y-1"
@@ -219,7 +207,19 @@ export const Product = () => {
                   R$ {filters.priceRange[0]} - R$ {filters.priceRange[1]}
                 </div>
               </div>
-              <div className="mb-6">
+              <div className="mb-4">
+              <FormGroup className="pl-2 pr-20 pb-2 ">
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={economyMode}
+                      onChange={() => setEconomyMode(!economyMode)}
+                    />
+                  }
+                  className="text-white font-montserrat font-semibold bg-green-500 rounded"
+                  label="Economia Máxima"
+                />
+              </FormGroup>
                 <h3 className="font-semibold text-gray-700 mb-2">Mercados</h3>
                 <div>
                   {[
@@ -248,7 +248,7 @@ export const Product = () => {
               </div>
               <button
                 onClick={() => setIsFilterOpen(false)}
-                className="bg-orange-500 text-white py-2 px-4 rounded-full w-full font-bold hover:bg-orange-600 transition-all"
+                className="bg-orange-500 text-white py-2 px-4 pr-2 rounded-full w-full font-bold hover:bg-orange-600 transition-all"
               >
                 Aplicar Filtros
               </button>

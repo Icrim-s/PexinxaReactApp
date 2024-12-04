@@ -21,5 +21,7 @@ describe('Logon test suite', () => {
     LoginPage.submit();
     cy.wait(2000);
     LoginPage.errorMessage().contains('Senha ou E-mail Invalido.');
+
+
   });
 });

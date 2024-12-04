@@ -22,5 +22,9 @@ class LoginPage{
     sucessfulMessage(){
         return cy.get('.text-green-800.bg-green-200.text-center'); 
     }
+
+    googleLogin(){
+        cy.get('[@id="root"]/div/main/div/div/button[2]').click();
+    }
 }
 export default new LoginPage();
